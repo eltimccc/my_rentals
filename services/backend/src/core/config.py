@@ -1,5 +1,7 @@
 from pydantic_settings import BaseSettings
 
+LIFETIME = 3600
+
 
 class Settings(BaseSettings):
     app_title: str = 'Прокат Псков set'

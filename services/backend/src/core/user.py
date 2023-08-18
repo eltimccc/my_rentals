@@ -7,6 +7,7 @@ from fastapi_users.authentication import (AuthenticationBackend,
                                           BearerTransport, JWTStrategy)
 from fastapi_users_db_sqlalchemy import SQLAlchemyUserDatabase
 from sqlalchemy.ext.asyncio import AsyncSession
+from src.core.config import LIFETIME
 
 from src.core.config import settings
 from src.core.db import get_async_session
