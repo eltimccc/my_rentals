@@ -1,9 +1,22 @@
 from fastapi import FastAPI
+from dotenv import load_dotenv
+
+from src.core.config import settings
 
 
-app = FastAPI()
+
+
+load_dotenv()
+
+app = FastAPI(title=settings.app_title,
+              description=settings.description)
+
 
 
 @app.get("/")
 def home():
-    return "Hello omg!"
+
+    return "DESCRIPTION"
+
+
+
