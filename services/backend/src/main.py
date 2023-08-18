@@ -1,22 +1,20 @@
 from fastapi import FastAPI
-from dotenv import load_dotenv
 
 from src.core.config import settings
+from src.api.routers import main_router
 
 
-
-
-load_dotenv()
 
 app = FastAPI(title=settings.app_title,
               description=settings.description)
 
 
+app.include_router(main_router)
 
-@app.get("/")
-def home():
+# @app.get("/")
+# def home():
 
-    return "DESCRIPTION"
+#     return "DESCRIPTION"
 
 
 
