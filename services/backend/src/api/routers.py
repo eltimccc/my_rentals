@@ -1,9 +1,7 @@
 # app/api/routers.py
 from fastapi import APIRouter
 
-from src.api.endpoints import (
-    user_router
-)
+from src.api.endpoints import user_router
 
 main_router = APIRouter()
 

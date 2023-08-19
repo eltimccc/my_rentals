@@ -1,1 +1,1 @@
-from src.models import User  # noqa 
+from src.models import User  # noqa
