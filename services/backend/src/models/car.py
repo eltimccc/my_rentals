@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 class Car(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(50), nullable=False)
-    price_id = Column(Integer, ForeignKey('prices.id'))
+    price_id = Column(Integer, ForeignKey('price.id'))
     price = relationship('Price', back_populates='cars')
     photo_url = Column(String)
     description = Column(Text)
