@@ -3,16 +3,13 @@ from pydantic import BaseModel, Field, PositiveInt
 
 
 class CarBase(BaseModel):
-    brand: str = Field(..., min_length=1,
-                      max_length=50)
+    brand: str = Field(..., min_length=1, max_length=50)
     price_id: int
     photo_url: Optional[str] = "default"
-    description: str = Field('descr', min_length=1,
-                             max_length=500)
+    description: str = Field("descr", min_length=1, max_length=500)
     base_price: Optional[int] = 0
     color: str = Field("Black", min_length=1, max_length=50)
-    transmission: str = Field('transm', min_length=1,
-                              max_length=20)
+    transmission: str = Field("transm", min_length=1, max_length=20)
     air_cold: Optional[str] = "default"
     power: Optional[PositiveInt] = 0
     fuel_type: Optional[str] = "default"
@@ -28,7 +25,7 @@ class CarUpdate(CarBase):
     pass
 
 
-class CarInfo(CarBase):
+class Car(CarBase):
     id: int
 
     class Config:

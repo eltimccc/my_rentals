@@ -1,6 +1,7 @@
 from typing import Any, Dict
 from src.schemas.price import PriceCreate
 
+
 def model_dump(price_create: PriceCreate) -> Dict[str, Any]:
     return {
         "name": price_create.name,
@@ -10,5 +11,5 @@ def model_dump(price_create: PriceCreate) -> Dict[str, Any]:
         "eight_fourteen_days": price_create.eight_fourteen_days,
         "fifteen_thirty_days": price_create.fifteen_thirty_days,
         "weekend": price_create.weekend,
-        "deposit": price_create.deposit
+        "deposit": price_create.deposit,
     }

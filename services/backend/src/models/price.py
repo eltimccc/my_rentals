@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 
 class Price(Base):
     id = Column(Integer, primary_key=True, index=True)
-    cars_association = relationship("Car", back_populates="price") 
+    cars_association = relationship("Car", back_populates="price")
     name = Column(String, index=True)
     one_day = Column(Integer)
     two_three_days = Column(Integer)

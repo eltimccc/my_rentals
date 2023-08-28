@@ -15,7 +15,7 @@ class Car(Base):
     color = Column(String(50))
     transmission = Column(String(50))
     air_cold = Column(String(50))
-    power= Column(Integer)
+    power = Column(Integer)
     fuel_type = Column(String(50))
     fuel_rate = Column(String(50))
     year = Column(Integer)

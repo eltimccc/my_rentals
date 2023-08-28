@@ -6,6 +6,7 @@ from sqlalchemy.exc import NoResultFound
 from src.schemas.price import PriceCreate
 from src.models.price import Price
 
+
 class PriceRepository:
     def __init__(self, db: AsyncSession):
         self._db = db
@@ -31,7 +32,6 @@ class PriceRepository:
         result = await self._db.execute(query)
         prices = result.scalars().all()
         return prices
-    
 
     async def update_price(self, price_id: int, price_update: PriceCreate) -> Price:
         query = select(Price).where(Price.id == price_id)
@@ -45,7 +45,6 @@ class PriceRepository:
             return price
         except NoResultFound:
             return None
-        
 
     async def patch_price(self, price_id: int, price_update: PriceCreate) -> Price:
         query = select(Price).where(Price.id == price_id)
@@ -59,8 +58,7 @@ class PriceRepository:
             return price
         except NoResultFound:
             return None
-        
-        
+
     async def delete_price(self, price_id: int) -> Price:
         query = select(Price).where(Price.id == price_id)
         try:
