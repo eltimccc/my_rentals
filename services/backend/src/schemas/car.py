@@ -3,20 +3,20 @@ from pydantic import BaseModel, Field, PositiveInt
 
 
 class CarBase(BaseModel):
-    name: str = Field(..., min_length=1,
+    brand: str = Field(..., min_length=1,
                       max_length=50)
     price_id: int
-    photo_url: Optional[str] = "default_photo_url"
-    description: str = Field('desc here pls', min_length=1,
+    photo_url: Optional[str] = "default"
+    description: str = Field('descr', min_length=1,
                              max_length=500)
     base_price: Optional[int] = 0
     color: str = Field("Black", min_length=1, max_length=50)
-    transmission: str = Field('trans here pls', min_length=1,
-                              max_length=10)
-    air_cold: Optional[str] = "I want anything here"
+    transmission: str = Field('transm', min_length=1,
+                              max_length=20)
+    air_cold: Optional[str] = "default"
     power: Optional[PositiveInt] = 0
-    fuel_type: Optional[str] = "I want anything here"
-    fuel_rate: Optional[str] = "I want anything here"
+    fuel_type: Optional[str] = "default"
+    fuel_rate: Optional[str] = "default"
     year: Optional[PositiveInt] = 0
 
 

@@ -5,8 +5,8 @@ from sqlalchemy.orm import relationship
 
 class Price(Base):
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(50), nullable=False)
-    cars = relationship('Car', back_populates='price')
+    cars_association = relationship("Car", back_populates="price") 
+    name = Column(String, index=True)
     one_day = Column(Integer)
     two_three_days = Column(Integer)
     four_seven_days = Column(Integer)

@@ -1,3 +1,5 @@
+
+from typing import Any, Dict
 from pydantic import BaseModel
 
 class PriceBase(BaseModel):
@@ -11,6 +13,9 @@ class PriceBase(BaseModel):
     deposit: int
 
 class PriceCreate(PriceBase):
+    pass
+
+class PriceUpdate(PriceBase):
     pass
 
 class Price(PriceBase):
