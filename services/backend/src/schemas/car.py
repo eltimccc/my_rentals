@@ -25,7 +25,13 @@ class CarUpdate(CarBase):
     pass
 
 
-class Car(CarBase):
+# class Car(CarBase):
+#     id: int
+
+#     class Config:
+#         orm_mode = True
+
+class CarSchema(CarBase):
     id: int
 
     class Config:
