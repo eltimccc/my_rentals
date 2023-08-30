@@ -2,6 +2,9 @@ from typing import Any, Dict
 from pydantic import BaseModel
 
 
+from pydantic import BaseModel
+
+
 class PriceBase(BaseModel):
     name: str
     one_day: int
@@ -12,16 +15,13 @@ class PriceBase(BaseModel):
     weekend: int
     deposit: int
 
-
 class PriceCreate(PriceBase):
     pass
-
 
 class PriceUpdate(PriceBase):
     pass
 
-
-class Price(PriceBase):
+class PriceSchema(PriceBase):
     id: int
 
     class Config:
