@@ -61,7 +61,6 @@ class CRUDBase:
         await session.commit()
         return db_obj
 
-
     async def patch(
         self,
         db_obj,

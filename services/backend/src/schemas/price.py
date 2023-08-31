@@ -15,11 +15,14 @@ class PriceBase(BaseModel):
     weekend: int
     deposit: int
 
+
 class PriceCreate(PriceBase):
     pass
 
+
 class PriceUpdate(PriceBase):
     pass
+
 
 class PriceSchema(PriceBase):
     id: int
