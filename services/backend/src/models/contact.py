@@ -1,6 +1,7 @@
 from src.core.db import Base
 from sqlalchemy import Column, String
 
+
 class Contact(Base):
     email: str = Column(String(50))
     phone: str = Column(String(50))

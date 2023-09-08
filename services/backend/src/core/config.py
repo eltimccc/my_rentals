@@ -1,8 +1,14 @@
+import os
 from typing import Optional
 from pydantic import EmailStr
 from pydantic_settings import BaseSettings
 
 LIFETIME = 3600
+UPLOAD_FOLDER = "uploads"
+
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 
 class Settings(BaseSettings):

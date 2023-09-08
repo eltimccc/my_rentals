@@ -1,3 +1,4 @@
+import os
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -5,6 +6,7 @@ from src.crud.base import CRUDBase
 from src.models.car import Car
 from src.schemas.car import CarCreate, CarSchema, CarUpdate
 from src.core.db import get_async_session
+import shutil
 
 
 router = APIRouter()
@@ -25,7 +27,7 @@ async def get_car_by_id(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/cars", response_model=List[CarSchema], tags=["CARS"])
+@router.get("/cars", response_model=List[CarSchema], tags=("CARS",))
 async def get_all_cars(session: AsyncSession = Depends(get_async_session)):
     cars = await car_crud.get_multi(session=session)
     return cars
@@ -42,7 +44,18 @@ async def create_car(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.put("/cars/{car_id}", response_model=CarSchema, tags=["CARS"])
+# @router.post("/uploadfile/", tags=["CARS"])
+# async def create_img(
+#     photo: UploadFile = File(...), session: AsyncSession = Depends(get_async_session)
+# ):
+#     with open(f"uploads/{photo.filename}", "wb") as buffer:
+#         shutil.copyfileobj(photo.file, buffer)
+#     photo_url = f"uploads/{photo.filename}"
+#     print(photo_url)
+#     return {'photo': photo.filename}
+
+
+@router.put("/cars/{car_id}", response_model=CarSchema, tags=("CARS",))
 async def update_car(
     car_id: int, car_data: CarUpdate, session: AsyncSession = Depends(get_async_session)
 ):
@@ -59,7 +72,7 @@ async def update_car(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.patch("/cars/{car_id}", response_model=CarSchema, tags=["CARS"])
+@router.patch("/cars/{car_id}", response_model=CarSchema, tags=("CARS",))
 async def patch_car(
     car_id: int, car_data: CarUpdate, session: AsyncSession = Depends(get_async_session)
 ):
@@ -74,7 +87,7 @@ async def patch_car(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.delete("/cars/{car_id}", response_model=CarSchema, tags=["CARS"])
+@router.delete("/cars/{car_id}", response_model=CarSchema, tags=("CARS",))
 async def delete_car(car_id: int, session: AsyncSession = Depends(get_async_session)):
     try:
         car = await car_crud.get(obj_id=car_id, session=session)

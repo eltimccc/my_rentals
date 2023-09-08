@@ -1,20 +1,21 @@
 from typing import Optional
-from pydantic import BaseModel, Field, PositiveInt
+from pydantic import BaseModel, PositiveInt
 
 
 class CarBase(BaseModel):
-    brand: str = Field(..., min_length=1, max_length=50)
-    price_id: int
-    photo_url: Optional[str] = "default"
-    description: str = Field("descr", min_length=1, max_length=500)
-    base_price: Optional[int] = 0
-    color: str = Field("Black", min_length=1, max_length=50)
-    transmission: str = Field("transm", min_length=1, max_length=20)
-    air_cold: Optional[str] = "default"
-    power: Optional[PositiveInt] = 0
-    fuel_type: Optional[str] = "default"
-    fuel_rate: Optional[str] = "default"
-    year: Optional[PositiveInt] = 0
+    brand: str = "default"
+    model: str = "default"
+    price_id: int = 2
+    photo_url: str = "default"
+    description: str
+    base_price: Optional[int] = 1999
+    color: str = "default"
+    transmission: str
+    air_cold: str = "default"
+    power: Optional[PositiveInt] = 100
+    fuel_type: str = "default"
+    fuel_rate: str = "default"
+    year: Optional[PositiveInt] = 1990
 
 
 class CarCreate(CarBase):
