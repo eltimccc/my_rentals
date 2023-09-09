@@ -8,6 +8,7 @@ from src.api.endpoints import (
     user_router,
     contact_router,
     image_router,
+    news_router,
 )
 
 
@@ -17,4 +18,5 @@ main_router.include_router(car_router)
 main_router.include_router(price_router)
 main_router.include_router(contact_router)
 main_router.include_router(image_router)
+main_router.include_router(news_router)
 main_router.include_router(user_router)

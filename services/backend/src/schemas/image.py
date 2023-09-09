@@ -21,6 +21,7 @@ class ImageSchema(ImageBase):
     class Config:
         orm_mode = True
 
+
 class ImageListSchema(BaseModel):
     id: int
     name: str
