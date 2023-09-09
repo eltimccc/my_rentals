@@ -9,6 +9,7 @@ class Car(Base):
     model = Column(String)
     price_id = Column(Integer, ForeignKey("price.id"))
     price = relationship("Price", back_populates="cars_association")
+    image_id = Column(Integer, ForeignKey("image.id"))
     photo_url = Column(String)
     description = Column(Text)
     base_price = Column(Integer)

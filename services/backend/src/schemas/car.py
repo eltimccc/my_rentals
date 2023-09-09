@@ -5,6 +5,7 @@ from pydantic import BaseModel, PositiveInt
 class CarBase(BaseModel):
     brand: str = "default"
     model: str = "default"
+    image_id: Optional[PositiveInt] = 10
     price_id: int = 2
     photo_url: str = "default"
     description: str

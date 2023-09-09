@@ -14,8 +14,13 @@ class ImageCreate(ImageBase):
 class ImageDelete(ImageBase):
     id: int
 
+
 class ImageSchema(ImageBase):
     id: int
 
     class Config:
         orm_mode = True
+
+class ImageListSchema(BaseModel):
+    id: int
+    name: str

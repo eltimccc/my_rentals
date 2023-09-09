@@ -1,7 +1,8 @@
 import shutil
 from typing import List
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, Response, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
+from src.schemas.image import ImageListSchema
 
 from src.core.db import AsyncSessionLocal, get_async_session
 from src.models.image import Image
@@ -14,10 +15,26 @@ router = APIRouter()
 img_crud = CRUDBase(Image)
 
 
-@router.get("/img", response_model=List[ImageSchema], tags=("IMAGES",))
-async def get_all_img(session: AsyncSessionLocal = Depends(get_async_session)):
-    img = await img_crud.get_multi(session=session)
-    return img
+@router.get("/img", response_model=List[ImageListSchema], tags=("IMAGES",))
+async def get_all_img(session: AsyncSession = Depends(get_async_session)):
+    img_list = await img_crud.get_multi(session=session)
+
+    img_with_name_id = [{"id": img.id, "name": img.name} for img in img_list]
+
+    return img_with_name_id
+
+
+@router.get("/get_image/{image_id}", response_model=ImageSchema, tags=("IMAGES",))
+async def get_image(
+    image_id: int,
+    session: AsyncSession = Depends(get_async_session),
+):
+    image = await img_crud.get(session=session, obj_id=image_id)
+    if image is None:
+        raise HTTPException(status_code=404, detail="Image not found")
+
+    return Response(content=image.data, media_type="image/jpeg")
+
 
 @router.post("/uploadfile/", tags=("IMAGES",))
 async def create_img(
@@ -27,16 +44,10 @@ async def create_img(
     try:
         image_data = await photo.read()
 
-        image = Image(name=photo.filename, data=image_data)
-        session.add(image)
-        await session.commit()
+        await img_crud.create(
+            session=session, obj_in=ImageCreate(name=photo.filename, data=image_data)
+        )
 
-        return {'photo': photo.filename}
+        return {"photo": photo.filename}
     except Exception as e:
-        return {'error': str(e)}
-
-
-
-
-
-
+        raise HTTPException(status_code=500, detail=str(e))
