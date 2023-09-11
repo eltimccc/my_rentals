@@ -12,7 +12,7 @@ router = APIRouter()
 price_crud = CRUDBase(Price)
 
 
-@router.get("/prices/{price_id}", response_model=PriceSchema, tags=("PRICES",))
+@router.get("/{price_id}", response_model=PriceSchema)
 async def get_price_by_id(
     price_id: int, session: AsyncSession = Depends(get_async_session)
 ):
@@ -25,13 +25,13 @@ async def get_price_by_id(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/prices", response_model=List[PriceSchema], tags=["PRICES"])
+@router.get("/", response_model=List[PriceSchema])
 async def get_all_prices(session: AsyncSession = Depends(get_async_session)):
     prices = await price_crud.get_multi(session=session)
     return prices
 
 
-@router.post("/prices", response_model=PriceSchema, tags=("PRICES",))
+@router.post("/", response_model=PriceSchema)
 async def create_price(
     price_data: PriceCreate, session: AsyncSession = Depends(get_async_session)
 ):
@@ -42,7 +42,7 @@ async def create_price(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.patch("/prices/{price_id}", response_model=PriceSchema, tags=("PRICES",))
+@router.patch("/{price_id}", response_model=PriceSchema)
 async def patch_price(
     price_id: int,
     price_data: PriceUpdate,
@@ -61,7 +61,7 @@ async def patch_price(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.delete("/prices/{price_id}", response_model=PriceSchema, tags=("PRICES",))
+@router.delete("/{price_id}", response_model=PriceSchema)
 async def delete_price(
     price_id: int, session: AsyncSession = Depends(get_async_session)
 ):
@@ -76,7 +76,7 @@ async def delete_price(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.put("/price/{price_id}", response_model=PriceSchema, tags=("PRICES",))
+@router.put("/{price_id}", response_model=PriceSchema)
 async def update_price(
     price_id: int,
     price_data: PriceUpdate,

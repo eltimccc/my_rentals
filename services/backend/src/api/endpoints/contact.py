@@ -11,7 +11,7 @@ router = APIRouter()
 contact_crud = CRUDBase(Contact)
 
 
-@router.get("/contacts/{contact_id}", response_model=ContactSchema, tags=("CONTACTS",))
+@router.get("/{contact_id}", response_model=ContactSchema)
 async def get_contact_by_id(
     contact_id: int, session: AsyncSession = Depends(get_async_session)
 ):
@@ -24,13 +24,13 @@ async def get_contact_by_id(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/contacts", response_model=List[ContactSchema], tags=["CONTACTS"])
+@router.get("/", response_model=List[ContactSchema])
 async def get_all_contacts(session: AsyncSession = Depends(get_async_session)):
     contacts = await contact_crud.get_multi(session=session)
     return contacts
 
 
-@router.post("/contacts", response_model=ContactSchema, tags=["CONTACTS"])
+@router.post("/", response_model=ContactSchema)
 async def create_contact(
     contact_data: ContactCreate, session: AsyncSession = Depends(get_async_session)
 ):
@@ -41,7 +41,7 @@ async def create_contact(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.put("/contacts/{contact_id}", response_model=ContactSchema, tags=["CONTACTS"])
+@router.put("/{contact_id}", response_model=ContactSchema)
 async def update_contact(
     contact_id: int,
     contact_data: ContactUpdate,
@@ -60,7 +60,7 @@ async def update_contact(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.patch("/contacts/{contact_id}", response_model=ContactSchema, tags=["CONTACTS"])
+@router.patch("/{contact_id}", response_model=ContactSchema)
 async def patch_contact(
     contact_id: int,
     contact_data: ContactUpdate,
@@ -79,9 +79,7 @@ async def patch_contact(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.delete(
-    "/contacts/{contact_id}", response_model=ContactSchema, tags=["CONTACTS"]
-)
+@router.delete("/{contact_id}", response_model=ContactSchema)
 async def delete_contact(
     contact_id: int, session: AsyncSession = Depends(get_async_session)
 ):

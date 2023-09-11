@@ -13,9 +13,8 @@ car_crud = CRUDBase(Car)
 
 
 @router.get(
-    "/cars/{car_id}",
+    "/{car_id}",
     response_model=CarSchema,
-    tags=("CARS",),
     description="Получение одного автомобиля по его id",
 )
 async def get_car_by_id(
@@ -31,9 +30,8 @@ async def get_car_by_id(
 
 
 @router.get(
-    "/cars",
+    "/",
     response_model=List[CarSchema],
-    tags=("CARS",),
     description="Получение всех автомобилей из БД",
 )
 async def get_all_cars(session: AsyncSession = Depends(get_async_session)):
@@ -42,9 +40,8 @@ async def get_all_cars(session: AsyncSession = Depends(get_async_session)):
 
 
 @router.post(
-    "/cars",
+    "/",
     response_model=CarSchema,
-    tags=["CARS"],
     description="Создание автомобиля",
 )
 async def create_car(
@@ -58,9 +55,8 @@ async def create_car(
 
 
 @router.patch(
-    "/cars/{car_id}",
+    "/{car_id}",
     response_model=CarSchema,
-    tags=("CARS",),
     description="Частичное редактирование",
 )
 async def patch_car(
@@ -78,9 +74,8 @@ async def patch_car(
 
 
 @router.put(
-    "/cars/{car_id}",
+    "/{car_id}",
     response_model=CarSchema,
-    tags=("CARS",),
     description="Редактирование имеющегося автомобиля с полной заменой",
 )
 async def update_car(
@@ -100,9 +95,8 @@ async def update_car(
 
 
 @router.delete(
-    "/cars/{car_id}",
+    "/{car_id}",
     response_model=CarSchema,
-    tags=("CARS",),
     description="Удаление автомобиля по его id",
 )
 async def delete_car(car_id: int, session: AsyncSession = Depends(get_async_session)):

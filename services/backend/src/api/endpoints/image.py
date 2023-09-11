@@ -15,7 +15,7 @@ router = APIRouter()
 img_crud = CRUDBase(Image)
 
 
-@router.get("/img", response_model=List[ImageListSchema], tags=("IMAGES",))
+@router.get("/all", response_model=List[ImageListSchema])
 async def get_all_img(session: AsyncSession = Depends(get_async_session)):
     img_list = await img_crud.get_multi(session=session)
 
@@ -24,7 +24,7 @@ async def get_all_img(session: AsyncSession = Depends(get_async_session)):
     return img_with_name_id
 
 
-@router.get("/get_image/{image_id}", response_model=ImageSchema, tags=("IMAGES",))
+@router.get("/get_img/{image_id}", response_model=ImageSchema)
 async def get_image(
     image_id: int,
     session: AsyncSession = Depends(get_async_session),
@@ -36,7 +36,7 @@ async def get_image(
     return Response(content=image.data, media_type="image/jpeg")
 
 
-@router.post("/uploadfile/", tags=("IMAGES",))
+@router.post("/uploadfile/")
 async def create_img(
     photo: UploadFile = File(...),
     session: AsyncSession = Depends(get_async_session),

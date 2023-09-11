@@ -14,7 +14,7 @@ news_crud = CRUDBase(News)
 
 
 @router.get(
-    "/news",
+    "/",
     response_model=List[NewsSchema],
     tags=("NEWS",),
     description="Получение всех новостей",
@@ -25,7 +25,7 @@ async def get_all_news(session: AsyncSession = Depends(get_async_session)):
 
 
 @router.post(
-    "/news", response_model=NewsSchema, tags=("NEWS",), description="Создание новости"
+    "/", response_model=NewsSchema, tags=("NEWS",), description="Создание новости"
 )
 async def create_news(
     news_data: NewsCreate,
@@ -39,7 +39,7 @@ async def create_news(
 
 
 @router.get(
-    "/news/{news_id}",
+    "/{news_id}",
     response_model=NewsSchema,
     tags=("NEWS",),
     description="Получение новости по ID",
@@ -58,7 +58,7 @@ async def read_news(
 
 
 @router.put(
-    "/news/{news_id}",
+    "/{news_id}",
     response_model=NewsSchema,
     tags=("NEWS",),
     description="Обновление новости",
@@ -82,7 +82,7 @@ async def update_news(
 
 
 @router.delete(
-    "/news/{news_id}",
+    "/{news_id}",
     response_model=NewsDelete,
     tags=("NEWS",),
     description="Удаление новости",
