@@ -5,11 +5,12 @@ from src.crud.base import CRUDBase
 from src.models.price import Price
 from src.schemas.price import PriceCreate, PriceSchema, PriceUpdate
 from src.core.db import get_async_session
+from src.crud.price import price_crud
 
 
 router = APIRouter()
 
-price_crud = CRUDBase(Price)
+# price_crud = CRUDBase(Price)
 
 
 @router.get("/{price_id}", response_model=PriceSchema)

@@ -1,18 +1,14 @@
-import shutil
 from typing import List
 from fastapi import APIRouter, Depends, File, HTTPException, Response, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.schemas.image import ImageListSchema
 
-from src.core.db import AsyncSessionLocal, get_async_session
-from src.models.image import Image
+from src.core.db import get_async_session
 from src.schemas.image import ImageSchema, ImageCreate
-from src.crud.base import CRUDBase
+from src.crud.image import img_crud
 
 
 router = APIRouter()
-
-img_crud = CRUDBase(Image)
 
 
 @router.get("/all", response_model=List[ImageListSchema])

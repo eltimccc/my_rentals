@@ -1,14 +1,11 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.crud.base import CRUDBase
-from src.models.contact import Contact
 from src.schemas.contact import ContactCreate, ContactSchema, ContactUpdate
 from src.core.db import get_async_session
+from src.crud.contact import contact_crud
 
 router = APIRouter()
-
-contact_crud = CRUDBase(Contact)
 
 
 @router.get("/{contact_id}", response_model=ContactSchema)

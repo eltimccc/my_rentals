@@ -2,15 +2,13 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.schemas.news import NewsDelete
-from src.models.news import News
 
-from src.crud.base import CRUDBase
 from src.schemas.news import NewsCreate, NewsSchema, NewsUpdate
 from src.core.db import get_async_session
+from src.crud.news import news_crud
+
 
 router = APIRouter()
-
-news_crud = CRUDBase(News)
 
 
 @router.get(

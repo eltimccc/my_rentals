@@ -1,15 +1,13 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.crud.base import CRUDBase
-from src.models.car import Car
+from src.api import validators
 from src.schemas.car import CarCreate, CarSchema, CarUpdate
 from src.core.db import get_async_session
+from src.crud.car import car_crud
 
 
 router = APIRouter()
-
-car_crud = CRUDBase(Car)
 
 
 @router.get(
@@ -20,13 +18,9 @@ car_crud = CRUDBase(Car)
 async def get_car_by_id(
     car_id: int, session: AsyncSession = Depends(get_async_session)
 ):
-    try:
-        car = await car_crud.get(obj_id=car_id, session=session)
-        if not car:
-            raise HTTPException(status_code=404, detail="Car not found")
-        return car
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    await validators.validate_car_exists(session, car_id)
+    car = await car_crud.get(obj_id=car_id, session=session)
+    return car
 
 
 @router.get(
@@ -62,15 +56,11 @@ async def create_car(
 async def patch_car(
     car_id: int, car_data: CarUpdate, session: AsyncSession = Depends(get_async_session)
 ):
-    try:
-        car = await car_crud.get(obj_id=car_id, session=session)
-        if not car:
-            raise HTTPException(status_code=404, detail="Car not found")
+    await validators.validate_car_exists(session, car_id)
 
-        patched_car = await car_crud.patch(db_obj=car, obj_in=car_data, session=session)
-        return patched_car
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    car = await car_crud.get(obj_id=car_id, session=session)
+    patched_car = await car_crud.patch(db_obj=car, obj_in=car_data, session=session)
+    return patched_car
 
 
 @router.put(
@@ -81,17 +71,11 @@ async def patch_car(
 async def update_car(
     car_id: int, car_data: CarUpdate, session: AsyncSession = Depends(get_async_session)
 ):
-    try:
-        car = await car_crud.get(obj_id=car_id, session=session)
-        if not car:
-            raise HTTPException(status_code=404, detail="Car not found")
+    await validators.validate_car_exists(session, car_id)
 
-        updated_car = await car_crud.update(
-            db_obj=car, obj_in=car_data, session=session
-        )
-        return updated_car
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    car = await car_crud.get(obj_id=car_id, session=session)
+    updated_car = await car_crud.update(db_obj=car, obj_in=car_data, session=session)
+    return updated_car
 
 
 @router.delete(
@@ -100,12 +84,7 @@ async def update_car(
     description="Удаление автомобиля по его id",
 )
 async def delete_car(car_id: int, session: AsyncSession = Depends(get_async_session)):
-    try:
-        car = await car_crud.get(obj_id=car_id, session=session)
-        if not car:
-            raise HTTPException(status_code=404, detail="Car not found")
+    car = await validators.validate_car_exists(session, car_id)
 
-        deleted_car = await car_crud.remove(db_obj=car, session=session)
-        return deleted_car
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    deleted_car = await car_crud.remove(db_obj=car, session=session)
+    return deleted_car
