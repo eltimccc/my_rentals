@@ -1,5 +1,8 @@
 from typing import List
 from fastapi import APIRouter, HTTPException
+from src.service.calculate import calculate_and_add_booking
+from src.models.car import Car
+from src.models.price import Price
 from src.core.db import get_async_session
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -35,10 +38,36 @@ async def get_booking_by_id(
     return booking
 
 
+# @router.post("/", response_model=BookingCarDB)
+# async def create_booking(
+#     booking: BookingCarCreate,
+#     session: AsyncSession = Depends(get_async_session),
+# ):
+#     new_booking = await bookingcar_crud.create(booking, session)
+
+#     car = await session.get(Car, new_booking.car_id)
+#     price = await session.get(Price, car.price_id)
+
+#     # Рассчитайте total_amount
+#     total_amount = calculate_total_amount(
+#         new_booking.from_reserve,
+#         new_booking.to_reserve,
+#         price,
+#     )
+
+#     new_booking.total_amount = total_amount
+
+#     session.add(new_booking)
+#     await session.commit()
+#     await session.refresh(new_booking)
+
+#     return new_booking
+
+
 @router.post("/", response_model=BookingCarDB)
 async def create_booking(
     booking: BookingCarCreate,
     session: AsyncSession = Depends(get_async_session),
 ):
-    new_booking = await bookingcar_crud.create(booking, session)
+    new_booking = await calculate_and_add_booking(booking, session)
     return new_booking
