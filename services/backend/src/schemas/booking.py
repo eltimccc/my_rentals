@@ -47,3 +47,9 @@ class BookingCarDB(BookingCarBase):
 
     class Config:
         orm_mode = True
+
+class BookingCarID(BookingCarBase):
+    car_id: int
+
+    class Config:
+        orm_mode = True
