@@ -1,14 +1,17 @@
-# app/schemas/user.py
+from pydantic import BaseModel
 from fastapi_users import schemas
+from typing import Optional
 
+class UserBase(BaseModel):
+    full_name: Optional[str]
+    phone_number: Optional[str]
+    address: Optional[str]
 
-class UserRead(schemas.BaseUser[int]):
+class UserRead(UserBase, schemas.BaseUser[int]):
     pass
 
-
-class UserCreate(schemas.BaseUserCreate):
+class UserCreate(UserBase, schemas.BaseUserUpdate):
     pass
 
-
-class UserUpdate(schemas.BaseUserUpdate):
+class UserUpdate(UserBase, schemas.BaseUserUpdate):
     pass
