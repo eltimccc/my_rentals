@@ -35,8 +35,10 @@ user_crud = CRUDBase(User)
 
 @router.get(
     "/users/",
+    tags=("for_admin_users",),
     response_model=List[UserRead],
-    dependencies=[Depends(current_superuser)]
+    dependencies=[Depends(current_superuser)],
+    description="Получение всех пользователей",
 )
 async def get_users(session: AsyncSession = Depends(get_async_session)):
     users = await user_crud.get_multi(session)
