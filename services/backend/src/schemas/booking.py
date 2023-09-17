@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from typing import Optional
 from pydantic import BaseModel, EmailStr, Extra, Field, validator, root_validator
 
 
@@ -14,6 +15,7 @@ class BookingCarBase(BaseModel):
     last_name: str
     phone: str
     email: EmailStr
+    total_amount: Optional[int]
 
     class Config:
         extra = Extra.forbid
@@ -47,6 +49,7 @@ class BookingCarDB(BookingCarBase):
 
     class Config:
         orm_mode = True
+
 
 class BookingCarID(BookingCarBase):
     car_id: int

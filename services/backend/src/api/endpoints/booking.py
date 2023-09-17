@@ -1,17 +1,12 @@
 from typing import List
-from fastapi import APIRouter, HTTPException
-from src.core.db import AsyncSessionLocal
-from src.schemas.booking import BookingCarUpdate
-from src.api.validators import validate_booking_exists
-from src.api.validators import validate_car_exists
-from src.service.calculate import calculate_and_add_booking
-from src.core.db import get_async_session
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.core.user import current_superuser
 
-from src.schemas.booking import BookingCarCreate
-from src.schemas.booking import BookingCarDB
+from src.api.validators import validate_booking_exists, validate_car_exists
+from src.service.calculate import calculate_and_add_booking
+from src.core.db import AsyncSessionLocal, get_async_session
+from src.core.user import current_superuser
+from src.schemas.booking import BookingCarCreate, BookingCarDB, BookingCarUpdate
 from src.crud.booking import bookingcar_crud
 
 router = APIRouter()
@@ -44,7 +39,11 @@ async def get_booking_by_id(
     return booking
 
 
-@router.post("/", response_model=BookingCarDB, description="Создание бронирования автомобиля",)
+@router.post(
+    "/",
+    response_model=BookingCarDB,
+    description="Создание бронирования автомобиля",
+)
 async def create_booking(
     booking: BookingCarCreate,
     session: AsyncSession = Depends(get_async_session),
@@ -79,11 +78,12 @@ async def update_booking_by_id(
     description="Получение списка бронирований для конкретного автомобиля",
 )
 async def get_bookings_for_car(
-    car_id: int,
-    session: AsyncSession = Depends(get_async_session)
+    car_id: int, session: AsyncSession = Depends(get_async_session)
 ):
-    bookings = await bookingcar_crud.get_bookings_for_car(car_id=car_id, session=session)
-    
+    bookings = await bookingcar_crud.get_bookings_for_car(
+        car_id=car_id, session=session
+    )
+
     return bookings
 
 
