@@ -10,10 +10,8 @@ from src.crud.price import price_crud
 
 router = APIRouter()
 
-# price_crud = CRUDBase(Price)
 
-
-@router.get("/{price_id}", response_model=PriceSchema)
+@router.get("/{price_id}", response_model=PriceSchema, description="Получение тарифа по его id")
 async def get_price_by_id(
     price_id: int, session: AsyncSession = Depends(get_async_session)
 ):

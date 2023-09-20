@@ -20,7 +20,7 @@ async def get_all_img(session: AsyncSession = Depends(get_async_session)):
     return img_with_name_id
 
 
-@router.get("/get_img/{image_id}", response_model=ImageSchema)
+@router.get("/{image_id}", response_model=ImageSchema)
 async def get_image(
     image_id: int,
     session: AsyncSession = Depends(get_async_session),

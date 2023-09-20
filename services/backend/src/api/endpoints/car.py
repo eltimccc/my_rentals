@@ -51,7 +51,7 @@ async def create_car(
 @router.patch(
     "/{car_id}",
     response_model=CarSchema,
-    description="Частичное редактирование",
+    description="Частичное редактирование автомобиля",
 )
 async def patch_car(
     car_id: int, car_data: CarUpdate, session: AsyncSession = Depends(get_async_session)
@@ -66,7 +66,7 @@ async def patch_car(
 @router.put(
     "/{car_id}",
     response_model=CarSchema,
-    description="Редактирование имеющегося автомобиля с полной заменой",
+    description="Полное редактирование автомои=биля",
 )
 async def update_car(
     car_id: int, car_data: CarUpdate, session: AsyncSession = Depends(get_async_session)
