@@ -20,3 +20,24 @@ class Car(Base):
     fuel_type = Column(String(50))
     fuel_rate = Column(String(50))
     year = Column(Integer)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "brand": self.brand,
+            "model": self.model,
+            "price_id": self.price_id,
+            "photo_url": self.photo_url,
+            "description": self.description,
+            "base_price": self.base_price,
+            "color": self.color,
+            "transmission": self.transmission,
+            "air_cold": self.air_cold,
+            "power": self.power,
+            "fuel_type": self.fuel_type,
+            "fuel_rate": self.fuel_rate,
+            "year": self.year,
+            "links": {
+                "self": f"/api/cars/{self.id}",
+            }
+        }

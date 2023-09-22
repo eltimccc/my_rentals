@@ -10,4 +10,4 @@ class BookingCar(Base):
     last_name = Column(String)
     phone = Column(String)
     email = Column(String)
-    total_amount = Column(Float)
+    total_amount = Column(Integer)
