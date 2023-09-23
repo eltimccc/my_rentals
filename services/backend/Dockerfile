@@ -6,9 +6,12 @@ WORKDIR /app
 ENV PATH="${PATH}:/root/.local/bin"
 ENV PYTHONPATH=.
 
-COPY requirements.txt .
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install poetry
+
+COPY pyproject.toml poetry.lock* /app/
+
+RUN poetry install --no-root
+
 RUN pip install alembic
 
 COPY src/ .
