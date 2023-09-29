@@ -39,5 +39,5 @@ class Car(Base):
             "year": self.year,
             "links": {
                 "self": f"/api/cars/{self.id}",
-            }
+            },
         }

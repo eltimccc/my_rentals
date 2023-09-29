@@ -16,8 +16,9 @@ class BookingCarBase(BaseModel):
     phone: str
     email: str
     total_amount: Optional[int]
-    additional_services: Dict[str, int] = {}  # Словарь для хранения выбранных дополнительных услуг и их количества
-
+    additional_services: Dict[
+        str, int
+    ] = {}  # Словарь для хранения выбранных дополнительных услуг и их количества
 
     class Config:
         extra = Extra.forbid
@@ -43,7 +44,7 @@ class BookingCarUpdate(BookingCarBase):
 
 class BookingCarCreate(BookingCarUpdate):
     car_id: int
-    
+
 
 class BookingCarDB(BookingCarBase):
     id: int

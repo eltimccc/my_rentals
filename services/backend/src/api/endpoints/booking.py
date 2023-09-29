@@ -51,20 +51,20 @@ async def create_booking(
     session: AsyncSession = Depends(get_async_session),
 ):
     await validate_car_exists(session, booking.car_id)
-    
+
     total_additional_services_cost = 0
     additional_services = booking.additional_services
-    
+
     for service, quantity in additional_services.items():
         if service in services_constants:
             total_additional_services_cost += services_constants[service] * quantity
-    
+
     new_booking = await calculate_and_add_booking(booking, session)
-    new_booking.total_amount += total_additional_services_cost    
+    new_booking.total_amount += total_additional_services_cost
     car_data = await get_car_by_id(booking.car_id, session)
 
     send_email_booking(new_booking, car_data, services_constants)
-    
+
     return new_booking
 
 

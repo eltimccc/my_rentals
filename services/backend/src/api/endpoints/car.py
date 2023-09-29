@@ -32,6 +32,7 @@ async def get_all_cars(session: AsyncSession = Depends(get_async_session)):
     cars = await car_crud.get_multi(session=session)
     return cars
 
+
 ## hateoas
 # @router.get(
 #     "/",
@@ -40,15 +41,14 @@ async def get_all_cars(session: AsyncSession = Depends(get_async_session)):
 # )
 # async def get_all_cars(session: AsyncSession = Depends(get_async_session)):
 #     cars = await session.execute(select(Car))
-    
+
 #     # Создаем список автомобилей с гиперссылками
 #     cars_with_links = []
 #     for car in cars.scalars():
 #         car_dict = car.to_dict()
 #         cars_with_links.append(car_dict)
-    
-#     return cars_with_links
 
+#     return cars_with_links
 
 
 @router.post(

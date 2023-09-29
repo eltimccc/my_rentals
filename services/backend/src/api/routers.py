@@ -10,7 +10,7 @@ from src.api.endpoints import (
     image_router,
     news_router,
     bookingcar_router,
-    reports_router
+    reports_router,
 )
 
 main_router = APIRouter()
