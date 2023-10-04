@@ -1,17 +1,17 @@
 from sqlalchemy import (
     JSON,
-    Boolean,
     Column,
     DateTime,
-    Float,
     ForeignKey,
     Integer,
     String,
 )
+from datetime import datetime
 from src.core.db import Base
 
 
 class BookingCar(Base):
+    application_date = Column(DateTime, default=datetime.now)
     from_reserve = Column(DateTime)
     to_reserve = Column(DateTime)
     car_id = Column(Integer, ForeignKey("car.id"))
@@ -21,7 +21,7 @@ class BookingCar(Base):
     email = Column(String)
     additional_services = Column(
         JSON, default={}
-    )  # JSON-поле для хранения информации о дополнительных услугах и их количестве
+    )
     total_amount = Column(
         Integer, default=0
-    )  # Поле для хранения общей стоимости бронирования
+    )

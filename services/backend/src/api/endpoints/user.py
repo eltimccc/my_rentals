@@ -35,7 +35,7 @@ user_crud = CRUDBase(User)
 
 @router.get(
     "/users/",
-    tags=("for_admin_users",),
+    tags=("For admin",),
     response_model=List[UserRead],
     dependencies=[Depends(current_superuser)],
     description="Получение всех пользователей",

@@ -12,7 +12,7 @@ router = APIRouter()
     "/generate_report",
     description="Отчет за указанный период по доходу с каждого автомобиля",
 )
-async def generate_report_endpoint(
+async def generate_report(
     start_date_str: str = Query(
         ..., description="Дата начала периода в формате 'дд.мм.гггг'"
     ),
