@@ -71,7 +71,7 @@ ADDRESS=  # Адрес по умолчанию
 
 # Настройки почты для отправки заявки
 SMTP_SERVER=
-SMTP_PORT=5
+SMTP_PORT=
 SMTP_USERNAME=
 SMTP_PASSWORD=
 EMAIL_TO=
