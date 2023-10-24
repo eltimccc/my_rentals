@@ -93,8 +93,7 @@ uvicorn main:app --reload
 ```
 Где main - имя вашего файла с FastAPI приложением.
 
-Использование API
-API будет доступно по адресу http://localhost:5050/
+Использование API будет доступно по адресу http://localhost:5050/
 
 Документация API доступна по адресу http://localhost:5050/swagger#/
 
