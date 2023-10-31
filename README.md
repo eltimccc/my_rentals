@@ -47,13 +47,22 @@ git clone https://github.com/eltimccc/my_rentals.git
 cd my_rentals/services/backend/
 ```
 
-3) Установите зависимости:
+3) Установите виртуальное окружение:
+```
+python3 -m venv venv
+```
+
+4) Активируйте виртуальное окружение:
+```
+source venv/bin/activate
+```
+5) Установите зависимости:
 
 ```
 pip install -r requirements.txt
 ```
 
-4) Создайте файл .env в директории /backend/ и определите следующие переменные окружения:
+6) Создайте файл .env в директории backend/ и определите следующие переменные окружения:
 
 ```
 APP_TITLE=  # Название
@@ -78,7 +87,7 @@ EMAIL_TO=
 EMAIL_FROM=
 ```
 
-5) Перейдите в каталог проекта my_rentals с docker_compose.yml и выполните команду для сборки контейнера:
+7) Перейдите в каталог проекта my_rentals с docker_compose.yml и выполните команду для сборки контейнера:
 
 ```
 docker-compose up -d --build
@@ -86,10 +95,10 @@ docker-compose up -d --build
 
 *После этого запустится контейнер с сервисом my_retals.*
 
-6) Зайдите запущенный контейнер backend и выполните миграции:
+8) Зайдите запущенный контейнер backend и выполните миграции:
 
 ```
-alembic upgrade head
+docker exec -it <container_name> alembic upgrade head
 ```
 
 Использование API будет доступно по адресу http://localhost:5050/
